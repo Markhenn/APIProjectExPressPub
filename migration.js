@@ -9,7 +9,7 @@ const db = new sqlite3.Database(process.env.TEST_DATABASE || './database.sqlite'
 db.serialize(() => {
   db.run("DROP TABLE IF EXISTS Artist", err =>{
     if (err) {
-      return throw err;
+      return console.log(err);
     }
   });
 
@@ -21,7 +21,7 @@ db.serialize(() => {
     is_currently_employed INTEGER DEFAULT 1
   )`, err => {
     if (err) {
-      return throw err;
+      return console.log(err);
     }
   });
 });
@@ -34,17 +34,17 @@ db.serialize(() => {
 db.serialize(() => {
   db.run("DROP TABLE IF EXISTS Series", err =>{
     if (err) {
-      return throw err;
+      return console.log(err);
     }
   });
 
   db.run(`CREATE TABLE Series (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
-    description TEXT NOT NULL,
+    description TEXT NOT NULL
   )`, err => {
     if (err) {
-      return throw err;
+      return console.log(err);
     }
   });
 });
@@ -54,22 +54,22 @@ db.serialize(() => {
 // ------ Creating the Issues Table -----
 
 db.serialize(() => {
-  db.run("DROP TABLE IF EXISTS Issues", err =>{
+  db.run("DROP TABLE IF EXISTS Issue", err =>{
     if (err) {
-      return throw err;
+      return console.log(err);
     }
   });
 
-  db.run(`CREATE TABLE Issues (
+  db.run(`CREATE TABLE Issue (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
     issue_number TEXT NOT NULL,
     publication_date TEXT NOT NULL,
-    artist_id INTEGER FOREIGN KEY NOT NULL,
-    series_id INTEGER FOREIGN KEY NOT NULL
+    artist_id INTEGER NOT NULL,
+    series_id INTEGER NOT NULL
   )`, err => {
     if (err) {
-      return throw err;
+      return console.log(err);
     }
   });
 });
