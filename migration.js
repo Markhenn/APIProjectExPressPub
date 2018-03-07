@@ -1,7 +1,7 @@
 //migration.js contains all the queries to build the SQLite Database
 
 const sqlite3 = require('sqlite3');
-const db = new sqlite3.Database(process.env.TEST_DATABASE || './database.sqlite');
+const db = new sqlite3.Database('./database.sqlite');
 
 
 // ------ Creating the Artist Table -----
@@ -66,7 +66,9 @@ db.serialize(() => {
     issue_number TEXT NOT NULL,
     publication_date TEXT NOT NULL,
     artist_id INTEGER NOT NULL,
-    series_id INTEGER NOT NULL
+    series_id INTEGER NOT NULL,
+    FOREIGN KEY(`artist_id`) REFERENCES `Artist`(`id`),
+    FOREIGN KEY(`series_id`) REFERENCES `Series`(`id`)
   )`, err => {
     if (err) {
       return console.log(err);

@@ -5,6 +5,7 @@ const app = express();
 
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const cors = require('cors');
 const sqlite3 = require('sqlite3');
 const db = new sqlite3.Database(process.env.TEST_DATABASE || './database.sqlite');
 
@@ -14,6 +15,7 @@ module.exports = app;
 
 app.use(bodyParser.json());
 app.use(morgan('dev'));
+app.use(cors());
 
 app.listen(PORT, () => {
   console.log(`Server is listening on PORT: ${PORT}`);
